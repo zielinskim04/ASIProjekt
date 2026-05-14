@@ -1,0 +1,45 @@
+[project]
+name = "data-downloader"
+version = "0.1.0"
+description = "Pobieranie i geokodowanie ofert nieruchomości (ASI Projekt)"
+dependencies = [
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.0",
+    "pandas>=2.0.0",
+    "tenacity>=8.2.0",
+    "psycopg2-binary>=2.9.9",
+    "python-dotenv>=1.0.0",
+    "schedule>=1.2.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "pylint>=2.17.0"
+]
+geo = [
+    "geopy>=2.3.0",
+    "folium>=0.14.0"
+]
+database = [
+    "alembic>=1.11.0",
+    "sqlalchemy>=2.0.0"
+]
+all = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "pylint>=2.17.0",
+    "geopy>=2.3.0",
+    "folium>=0.14.0",
+    "alembic>=1.11.0",
+    "sqlalchemy>=2.0.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

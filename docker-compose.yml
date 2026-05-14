@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgis/postgis:15-3.3
@@ -14,6 +12,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
+
+  data_downloader:
+    build:
+      context: ./data_downloader
+    depends_on:
+      - db
 
   backend:
     build: 

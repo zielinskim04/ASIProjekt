@@ -25,3 +25,17 @@ System do analizy ofert nieruchomości pod kątem bliskości punktów POI (przys
 2. **APP API:** Silnik wyszukiwania wykorzystujący PostGIS do obliczeń odległości w czasie rzeczywistym.
 3. **APP UI:** Interfejs użytkownika prezentujący atrakcyjność lokalizacji na mapie.
 
+## 🚀 Instrukcja uruchomienia
+
+System jest w pełni skonteneryzowany, co zapewnia powtarzalność środowiska (dev, test, prod) zgodnie z wymaganiami projektu.
+
+### Wymagania
+- Docker
+- Docker Compose
+
+### Uruchomienie całego systemu
+Aby zbudować obrazy i uruchomić wszystkie moduły (Baza danych, Scraper, Backend, Frontend), wykonaj poniższą komendę w folderze głównym:
+
+```bash
+docker-compose up --build
+

@@ -1,1 +1,23 @@
 .vscode/
+
+venv/
+.venv/
+
+# ignore Python bytecode and cache directories
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ignore build / packaging artifacts
+*.egg-info/
+*.egg-info
+data_downloader.egg-info/
+build/
+dist/
+.eggs/
+pip-wheel-metadata/
+
+# local environment files
+.env
+.env.*
+.python-version
