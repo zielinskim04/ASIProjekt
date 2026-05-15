@@ -1,0 +1,32 @@
+services:
+  db:
+    container_name: asi_db_test
+    environment:
+      - POSTGRES_DB=realestate_test
+    ports:
+      - "5433:5432"
+
+  backend:
+    container_name: asi_backend_test
+    build: 
+      dockerfile: Dockerfile.dev
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/realestate_test
+    volumes:
+      - ./backend:/app
+    command: ["pytest", "tests/", "-v"] 
+    depends_on:
+      - db
+
+  frontend:
+    profiles: ["donotstart"]
+  data_downloader:
+    container_name: asi_downloader_test
+    build:
+      context: ./data_downloader
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./data_downloader:/app
+    command: ["pytest", "tests/", "-v"]
+    depends_on:
+      - db

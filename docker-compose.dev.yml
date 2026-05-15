@@ -1,0 +1,35 @@
+services:
+  db:
+    container_name: asi_db_dev
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  data_downloader:
+    container_name: asi_downloader_dev
+    build:
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./data_downloader:/app
+
+  backend:
+    container_name: asi_backend_dev
+    build: 
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app # allows to edit backend code on host and see changes live without rebuilding the image
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  frontend:
+    image: node:20-alpine
+    container_name: asi_frontend_dev
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    command: sh -c "if [ ! -f package.json ]; then npx create-react-app . ; fi && npm start"
+    environment:
+      - CHOKIDAR_USEPOLLING=true

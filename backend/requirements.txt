@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-psycopg2-binary
-sqlalchemy
-requests
-beautifulsoup4
-pandas

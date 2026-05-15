@@ -8,7 +8,7 @@ def clean_address_for_geo(text):
     if ' - ' in text:
         parts = text.split(' - ')
         street = parts[-1].strip()
-        city = parts[0].split()[0].strip()
+        city = parts[0].split(',')[0].strip()
         if street.startswith('ul. '):
             street = street[4:].strip()
         if not any(char.isdigit() for char in street):

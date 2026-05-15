@@ -86,6 +86,12 @@ cd src
 python main.py
 ```
 
+Uruchomienie samego modułu (Debugowanie)
+Jeśli piszesz nową logikę do scrapera i nie chcesz uruchamiać backendu ani frontendu, możesz podnieść wyłącznie bazę i ten moduł poleceniem z korzenia projektu:
+
+``` bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up data_downloader db --build
+```
 ### Czego oczekiwać
 
 1. **Scraping** — pobiera ~40 ofert z adresowo.pl

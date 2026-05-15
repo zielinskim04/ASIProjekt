@@ -21,3 +21,5 @@ pip-wheel-metadata/
 .env
 .env.*
 .python-version
+.benchmarks
+.pytest_cache

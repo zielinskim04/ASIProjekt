@@ -33,9 +33,34 @@ System jest w pełni skonteneryzowany, co zapewnia powtarzalność środowiska (
 - Docker
 - Docker Compose
 
-### Uruchomienie całego systemu
-Aby zbudować obrazy i uruchomić wszystkie moduły (Baza danych, Scraper, Backend, Frontend), wykonaj poniższą komendę w folderze głównym:
+### 💻 Środowisko Deweloperskie (DEV)
+Służy do codziennej pracy. Posiada włączone przeładowywanie kodu w locie (Hot-Reload) za pomocą wolumenów Dockera. Porty są otwarte na hoście, co ułatwia debugowanie.
 
 ```bash
-docker-compose up --build
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+Backend API (Swagger): http://localhost:8000/docs
+
+Frontend (React): http://localhost:3000
+
+Baza danych (PostgreSQL): localhost:5432
+
+### 🧪 Środowisko Testowe (TEST)
+Służy do automatycznego testowania systemu na sterylnej bazie danych (realestate_test), aby nie zanieczyścić danych deweloperskich. Uruchamia pytest i po zakończeniu automatycznie wyłącza kontenery.
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.test.yml up --build --abort-on-container-exit
+```
+
+### 🌍 Środowisko Produkcyjne (PROD)
+Zoptymalizowane, "zamrożone" środowisko gotowe do wdrożenia na serwer (kod skopiowany na stałe do wnętrza obrazów, frontend serwowany przez ultraszybki serwer Nginx).
+
+``` bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+Frontend: http://localhost:80 (domyślny port HTTP)
+
+Backend API: http://localhost:8000
+
+
 
