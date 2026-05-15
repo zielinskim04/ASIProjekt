@@ -62,5 +62,10 @@ Frontend: http://localhost:80 (domyślny port HTTP)
 
 Backend API: http://localhost:8000
 
+To see logs:
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f data_downloader
+```
+
 
 
