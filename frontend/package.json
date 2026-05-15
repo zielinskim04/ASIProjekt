@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "mkdir -p build && echo '<h1>Frontend działa!</h1>' > build/index.html"
+    "build": "mkdir -p build && echo '<h1>Frontend działa!</h1>' > build/index.html",
+    "start": "npm run build && npx -y serve -s build"
   }
 }
