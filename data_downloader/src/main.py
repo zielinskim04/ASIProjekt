@@ -19,7 +19,7 @@ def run_pipeline():
     pois = fetch_all_warsaw_pois()
     save_pois(pois)
 
-    raw_df = fetch_offers(max_pages=20)
+    raw_df = fetch_offers(max_pages=3)
 
     processed_df = process_offers(raw_df)
 

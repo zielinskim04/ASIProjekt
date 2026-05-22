@@ -9,8 +9,7 @@ def process_offers(df):
     if df.empty:
         return df
 
-    df = df[df['Tytuł'].str.contains('Mokotów|Ochota|Rembertów', case=False, na=False)]
-    logger.info(f"Po filtracji dzielnic zostało ofert: {len(df)}")
+    logger.info(f"Zostało ofert: {len(df)}")
     
     processed_results = []
 
