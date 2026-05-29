@@ -5,6 +5,8 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=realestate
+      - TZ=Europe/Warsaw
+      - PGTZ=Europe/Warsaw
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -14,14 +16,17 @@ services:
       context: ./data_downloader
     depends_on:
       - db
+    environment:
+      - TZ=Europe/Warsaw
 
   backend:
-    build: 
+    build:
       context: ./backend
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgresql://admin:admin@db:5432/realestate
+      - TZ=Europe/Warsaw
 
   frontend:
     depends_on:
