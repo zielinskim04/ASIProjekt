@@ -11,16 +11,24 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./data_downloader:/app
+    depends_on:
+      - db
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
 
   backend:
     container_name: asi_backend_dev
-    build: 
+    build:
       dockerfile: Dockerfile.dev
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app # allows to edit backend code on host and see changes live without rebuilding the image
     command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
 
   frontend:
     image: node:20-alpine
@@ -30,6 +38,11 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-    command: sh -c "if [ ! -f package.json ]; then npx create-react-app . ; fi && npm start"
+      - frontend_node_modules:/app/node_modules  # anonymous vol prevents host overwrite
+    command: sh -c "npm install && npm start"
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - PORT=3000
+
+volumes:
+  frontend_node_modules:
