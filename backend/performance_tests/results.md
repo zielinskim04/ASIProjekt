@@ -20,7 +20,7 @@ Typowy, spokojny ruch w serwisie. Zapytania obsługiwane są płynnie, a opóźn
 
 | Typ zapytania | Requests | Fails | Median | Average |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pobranie oferty** (`/properties/1`) | ~196 | **0** | < 10 ms | **~ 17 ms** |
+| **Pobranie oferty z najbliższymi POI** (`/properties/1`) | ~196 | **0** | < 10 ms | **~ 17 ms** |
 | **Lekki filtr** (`price_min`, `price_max`) | ~62 | **0** | ~ 28 ms | **~ 28 ms** |
 | **Ciężki filtr POI** (`poi_category`, `radius`) | ~52 | **0** | ~ 860 ms | **~ 876 ms** |
 
@@ -31,7 +31,7 @@ Standardowy ruch w godzinach szczytu. Zgodnie z założeniami widzimy, że liczb
 
 | Typ zapytania | Requests | Fails | Median | Average |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pobranie oferty** (`/properties/1`) | 1042 | **0** | 420 ms | **435 ms** |
+| **Pobranie oferty z najbliższymi POI** (`/properties/1`) | 1042 | **0** | 420 ms | **435 ms** |
 | **Lekki filtr** (`price_min`, `price_max`) | 563 | **0** | 560 ms | **537 ms** |
 | **Ciężki filtr POI** (`poi_category`, `radius`) | 523 | **0** | 1200 ms | **1180 ms** |
 
@@ -42,7 +42,7 @@ Sytuacja nagłego skoku popularności (tzw. efekt "wykopu") – np. w portalach 
 
 | Typ zapytania | Requests | Fails | Median | Average |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pobranie oferty** (`/properties/1`) | 537 | **0** | 2200 ms | **2169 ms** |
+| **Pobranie oferty z najbliższymi POI** (`/properties/1`) | 537 | **0** | 2200 ms | **2169 ms** |
 | **Lekki filtr** (`price_min`, `price_max`) | 240 | **0** | 860 ms | **839 ms** |
 | **Ciężki filtr POI** (`poi_category`, `radius`) | 238 | **0** | 4900 ms | **4871 ms** |
 
