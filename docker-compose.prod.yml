@@ -8,6 +8,8 @@ services:
     build:
       dockerfile: Dockerfile.prod
     restart: always
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/realestate
 
   backend:
     container_name: asi_backend_prod
