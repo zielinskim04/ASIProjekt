@@ -67,5 +67,10 @@ To see logs:
 docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f data_downloader
 ```
 
+Testy wydajnościowe:
+1. Najpierw odpal środowisko produkcyjne
+2. Następnie odpala locust:
+
+
 
 

@@ -1,0 +1,14 @@
+services:
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./backend/performance_tests:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --host=http://asi_backend_prod:8000
+    networks:
+      - asiprojekt_default
+
+networks:
+  asiprojekt_default:
+    external: true
