@@ -17,10 +17,23 @@ L.Icon.Default.mergeOptions({
 
 const WARSAW_CENTER = [52.2297, 21.0122];
 
-const POI_LABELS = {
-  bus_stop: '🚌 Przystanek',
-  school: '🏫 Szkoła',
-};
+const POI_OPTIONS = [
+  { value: 'bus_stop',    label: '🚌 Przystanki autobusowe' },
+  { value: 'school',      label: '🏫 Szkoły' },
+  { value: 'hospital',    label: '🏥 Szpitale' },
+  { value: 'cinema',      label: '🎬 Kina' },
+  { value: 'theatre',     label: '🎭 Teatry' },
+  { value: 'museum',      label: '🏛️ Muzea' },
+  { value: 'pub',         label: '🍺 Puby' },
+  { value: 'restaurant',  label: '🍽️ Restauracje' },
+  { value: 'cafe',        label: '☕ Kawiarnie' },
+  { value: 'bank',        label: '🏦 Banki' },
+  { value: 'parking',     label: '🅿️ Parkingi' },
+  { value: 'police',      label: '👮 Policja' },
+  { value: 'supermarket', label: '🛒 Supermarkety' },
+];
+
+const POI_LABELS = Object.fromEntries(POI_OPTIONS.map(o => [o.value, o.label]));
 
 function formatPrice(price) {
   if (!price) return '—';
@@ -129,8 +142,9 @@ export default function App() {
               onChange={e => handleFilterChange('poi_category', e.target.value)}
             >
               <option value="">Bez filtra POI</option>
-              <option value="bus_stop">Przystanki autobusowe</option>
-              <option value="school">Szkoły</option>
+              {POI_OPTIONS.map(o => (
+                <option key={o.value} value={o.value}>{o.label}</option>
+              ))}
             </select>
           </div>
 

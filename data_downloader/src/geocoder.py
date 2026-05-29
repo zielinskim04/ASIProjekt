@@ -29,9 +29,33 @@ def geocode_address(address):
         logger.error(f"Błąd Nominatim: {e}")
     return None, None
 
+AMENITY_CATEGORIES = {
+    'school':      'school',
+    'hospital':    'hospital',
+    'cinema':      'cinema',
+    'theatre':     'theatre',
+    'pub':         'pub',
+    'police':      'police',
+    'restaurant':  'restaurant',
+    'cafe':        'cafe',
+    'bank':        'bank',
+    'parking':     'parking',
+}
+
+def _detect_category(tags):
+    if tags.get('highway') == 'bus_stop':
+        return 'bus_stop'
+    if tags.get('tourism') == 'museum':
+        return 'museum'
+    if tags.get('shop') == 'supermarket':
+        return 'supermarket'
+    amenity = tags.get('amenity')
+    return AMENITY_CATEGORIES.get(amenity)
+
+
 @retry(stop=stop_after_attempt(3), wait=wait_random_exponential(multiplier=2, max=30))
 def fetch_all_warsaw_pois():
-    logger.info("Pobieram WSZYSTKIE szkoły i przystanki dla Warszawy z Overpass API (to potrwa chwilę)...")
+    logger.info("Pobieram POI dla Warszawy z Overpass API (to potrwa chwilę)...")
     headers = {'User-Agent': 'Property_Analysis_Bot_v2'}
     overpass_url = "https://overpass-api.de/api/interpreter"
 
@@ -41,29 +65,45 @@ def fetch_all_warsaw_pois():
     (
       nwr["highway"="bus_stop"](area.searchArea);
       nwr["amenity"="school"](area.searchArea);
+      nwr["amenity"="hospital"](area.searchArea);
+      nwr["amenity"="cinema"](area.searchArea);
+      nwr["amenity"="theatre"](area.searchArea);
+      nwr["amenity"="pub"](area.searchArea);
+      nwr["amenity"="police"](area.searchArea);
+      nwr["amenity"="restaurant"](area.searchArea);
+      nwr["amenity"="cafe"](area.searchArea);
+      nwr["amenity"="bank"](area.searchArea);
+      nwr["amenity"="parking"](area.searchArea);
+      nwr["tourism"="museum"](area.searchArea);
+      nwr["shop"="supermarket"](area.searchArea);
     );
     out center;
     """
-    
+
     response = requests.post(overpass_url, data=overpass_query, headers=headers, timeout=200)
     response.raise_for_status()
-    
+
     elements = response.json().get('elements', [])
     found_pois = []
-    
+
     for element in elements:
         e_lat = element.get('lat') or element.get('center', {}).get('lat')
         e_lon = element.get('lon') or element.get('center', {}).get('lon')
-        if not e_lat or not e_lon: continue
-        
+        if not e_lat or not e_lon:
+            continue
+
         osm_id = element.get('id')
         tags = element.get('tags', {})
-        name = tags.get('name')
-        
-        category = 'bus_stop' if tags.get('highway') == 'bus_stop' else ('school' if tags.get('amenity') == 'school' else None)
-            
+        category = _detect_category(tags)
+
         if category and osm_id:
-            found_pois.append({'osm_id': osm_id, 'category': category, 'name': name, 'lat': e_lat, 'lon': e_lon})
-            
+            found_pois.append({
+                'osm_id': osm_id,
+                'category': category,
+                'name': tags.get('name'),
+                'lat': e_lat,
+                'lon': e_lon,
+            })
+
     logger.info(f"SUKCES! Pobrane POI z Warszawy: {len(found_pois)} obiektów.")
     return found_pois
