@@ -20,6 +20,8 @@ System do analizy ofert nieruchomości pod kątem bliskości punktów POI (przys
 * `GET /api/v1/properties/{id}` – detale oferty + lista najbliższych punktów POI.
 * `GET /api/v1/ingestion/status` – status ostatniego scrapowania danych.
 
+Zdecydowano się na filtrowanie i obliczenia POI po stronie backendu, a nie pobierania danych, gdyż cały proces przetwarzania danych przekroczyłby sensowną długość czasu. Wydłuża to jednak czas odpowiedzi po stronie backendu.
+
 ## ⚙️ Kluczowe Komponenty
 1. **Data Downloader:** Automatyczny scraper ofert z `adresowo.pl`, normalizacja adresów do współrzędnych ($Lat, Lng$) i pobieranie POI z OpenStreetMap.
 2. **APP API:** Silnik wyszukiwania wykorzystujący PostGIS do obliczeń odległości w czasie rzeczywistym.
@@ -62,14 +64,18 @@ Frontend: http://localhost:80 (domyślny port HTTP)
 
 Backend API: http://localhost:8000
 
-To see logs:
+Do zobaczenia logów:
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.prod.yml logs -f data_downloader
 ```
 
-Testy wydajnościowe:
+### Testy wydajnościowe:
 1. Najpierw odpal środowisko produkcyjne
-2. Następnie odpala locust:
+2. Następnie odpal locust:
+```bash
+docker compose -f docker-compose.perf.yml up
+```
+3. Środowisko testowe powinno być widoczne na: http://localhost:8089
 
 
 
