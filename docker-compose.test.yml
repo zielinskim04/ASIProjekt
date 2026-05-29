@@ -8,18 +8,20 @@ services:
 
   backend:
     container_name: asi_backend_test
-    build: 
+    build:
       dockerfile: Dockerfile.dev
     environment:
-      - DATABASE_URL=postgresql://admin:admin@db:5432/realestate_test
+      - DB_NAME=realestate_test
+      - DB_HOST=db
+      - DB_USER=admin
+      - DB_PASSWORD=admin
+      - TZ=Europe/Warsaw
     volumes:
       - ./backend:/app
-    command: ["pytest", "tests/", "-v"] 
+    command: ["pytest", "tests/", "-v", "--tb=short"]
     depends_on:
       - db
 
-  frontend:
-    profiles: ["donotstart"]
   data_downloader:
     container_name: asi_downloader_test
     build:
@@ -27,6 +29,9 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./data_downloader:/app
-    command: ["pytest", "tests/", "-v"]
+    command: ["pytest", "tests/", "-v", "--tb=short"]
     depends_on:
       - db
+
+  frontend:
+    profiles: ["donotstart"]
