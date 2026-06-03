@@ -2,8 +2,18 @@
 
 System do analizy ofert nieruchomości pod kątem bliskości punktów POI (przystanki, kultura, usługi).
 
+## Demo projektu
+
+[Demo projektu](https://www.youtube.com/watch?v=nraNm0uj95k)
+
+## Sprawozdanie z projektu
+
+[Sprawozdanie](ASIRaport.pdf)
+
 ## Architektura (Model C4)
-[Diagram architektury](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=ASIProjekt&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1kvtrY5iuOh5Ky-eKvw5kUD4Uj-lJ5v1e%26export%3Ddownload)
+<!-- [Diagram architektury](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=ASIProjekt&dark=auto#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1kvtrY5iuOh5Ky-eKvw5kUD4Uj-lJ5v1e%26export%3Ddownload) -->
+
+[Diagram architektury](ASIProjekt.drawio.png)
 
 ## Stack Technologiczny
 | Warstwa | Technologia |
